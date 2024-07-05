@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Book Library</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg p-3 navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="./home.html">Book Hub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav m-auto gap-5 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="./home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./borrowed_books.html">User Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./admin_login.html">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./home.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./home.html">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="banner">
+        <img src="./img/banner.jpg">
+        <div class="banner-content">
+            <h1 class="display-4 fw-bold">Welcome to Book Hub</h1>
+            <p class="lead">Your one-stop destination for all your book needs</p>
+            <a href="./home.html"><button class="btn btn-primary">Explore Now</button></a>
+        </div>
+    </div>
+
+    <form class="d-flex container mt-5 w-50">
+        <input class="form-control me-2" type="search" id="searching" placeholder="Search" aria-label="Search">
+        <button class="btn btn-success" type="submit">Search</button>
+    </form>
+
+
+    <div class="main-container">
+        <div class="head">
+            <h1 class="head-line">Available Books</h1>
+        </div>
+
+        <div id="filters">
+            <button onclick="filterBooks('Si-Fi')">Si-Fi</button>
+            <button onclick="filterBooks('Non Si-Fi')">Non Si-Fi</button>
+            <button onclick="filterBooks('Coding')">Coding</button>
+            <button onclick="filterBooks('History')">History</button>
+            <button onclick="filterBooks('Math')">Math</button>
+            <button onclick="filterBooks('Physics')">Physics</button>
+            <button onclick="filterBooks('')">All</button>
+        </div>
+        <ul id="bookList" class="container"></ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bookList = document.getElementById('bookList');
+
+            function renderBooks(category = '') {
+                bookList.innerHTML = '';
+
+                let books = JSON.parse(localStorage.getItem('books')) || [];
+
+                books.filter(book => !book.borrowed && (category === '' || book.category === category)).forEach(book => {
+                    const li = document.createElement('li');
+                    li.className = 'book-item';
+
+                    const img = document.createElement('img');
+                    img.src = book.image;
+                    img.alt = book.title;
+
+                    const div = document.createElement('div');
+                    div.innerHTML = `<strong>${book.title}</strong><br>Author: ${book.author}<br>Category: ${book.category}`;
+
+                    const borrowButton = document.createElement('button');
+                    borrowButton.textContent = 'Borrow';
+                    borrowButton.onclick = function () {
+                        book.borrowed = true;
+                        book.borrowedBy = 'User';
+                        book.issuedDate = new Date().toLocaleDateString();
+
+                        const returnDate = new Date();
+                        returnDate.setDate(returnDate.getDate() + 14);
+                        book.returnDate = returnDate.toLocaleDateString();
+
+                        localStorage.setItem('books', JSON.stringify(books));
+                        renderBooks(category);
+                        alert(`Your book "${book.title}" by ${book.author} (Category: ${book.category}) has been borrowed.`);
+                    };
+
+                    li.appendChild(img);
+                    li.appendChild(div);
+                    li.appendChild(borrowButton);
+
+                    bookList.appendChild(li);
+                });
+            }
+
+            window.filterBooks = function (category) {
+                renderBooks(category);
+            };
+
+            renderBooks();
+        });
+
+        $(document).ready(function () {
+            $("#searching").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#bookList li").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

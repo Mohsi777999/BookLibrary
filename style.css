@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.banner {
+    position: relative;
+}
+
+.banner img {
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.6;
+}
+
+.banner-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 85vh;
+    width: 100%;
+    color: white;
+}
+
+/* Signup Page Style  */
+
+
+#form {
+    background-color: rgb(255, 255, 255);
+    width: 28%;
+    border-radius: 6px;
+    margin: 120px auto;
+    padding: 50px;
+    box-shadow: 10px 10px 10px rgb(21, 21, 21);
+}
+
+#form h1 {
+    text-align: center;
+}
+
+#form input {
+    width: 90%;
+    border-radius: 4px;
+    border: 3px solid #f6efef;
+    padding: 5px;
+}
+
+#form #btn {
+    width: 100%;
+    color: rgb(255, 255, 255);
+    background-color: rgb(108, 22, 189);
+    padding: 10px;
+    font-size: large;
+    border-radius: 10px;
+}
+
+.dashboard-container,
+.main-container {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.main-container h1,
+h2 {
+    margin-bottom: 20px;
+}
+
+.main-container label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.main-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.main-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.main-container button:hover {
+    background-color: #0056b3;
+}
+
+.main-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.main-container li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.book-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.book-item button {
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: white;
+}
+
+.book-item button:hover {
+    background-color: #ccc;
+}
+
+.book-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.book-item div {
+    text-align: left;
+}
+
+#filters button {
+    width: 200px;
+}
+
+#filters {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#bookList {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    padding: 50px 20px;
+    gap: 10px;
+}
+
+.book-item img {
+    width: 90px;
+    height: 90px;
+    margin-right: 12px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.book-item div {
+    text-align: left;
+    padding: 0px 15px 0px 0px;
+    border-style: none;
+}
+
+.main-container li {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    width: 415px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#bookForm {
+    width: 30%;
+    background-color: rgb(93, 54, 191);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 10px;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+#bookForm input {
+    padding: 10px 20px;
+    width: 50%;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+#bookForm label {
+    color: white;
+}
+
+#bookCategory {
+    padding: 10px;
+    width: 45%;
+}
+
+#bookCategory option {
+    font-size: 15px;
+}
+
+.exist {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.borr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.head-line {
+    background-color: rgb(246, 38, 38);
+    padding: 20px 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    box-shadow: 5px 8px 8px grey;
+}
+
+
+@media (min-width:480px) and (max-width:992px) {
+    #bookForm {
+        width: 65%;
+        background-color: rgb(93, 54, 191);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 10px;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+    }
+}
+
+
+@media (min-width:992px) and (max-width:1200px) {
+    #bookForm {
+        width: 55%;
+        background-color: rgb(93, 54, 191);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 10px;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+    }
+}
+
+
+
+@media (min-width:1200px) and (max-width:1500px) {
+    #bookForm {
+        width: 50%;
+        background-color: rgb(93, 54, 191);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 10px;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+    }
+}

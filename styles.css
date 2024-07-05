@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.login-container {
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 0 108px rgba(0, 0, 0, 1.1);
+    border-radius: 5px;
+    text-align: center;
+    width: 20%;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 50%;
+    padding: 15px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.admin-link {
+    margin-top: 20px;
+}
+
+.user-borr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.user-borr li img {
+    width: 100px;
+}
+
+.user-borr li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 50px 20px;
+}
+
+.user-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.head-linee {
+    background-color: rgb(246, 38, 38);
+    padding: 20px 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    box-shadow: 5px 8px 8px grey;
+}
+
+
+@media (min-width:480px) and (max-width:992px) {
+    .login-container {
+        background-color: white;
+        padding: 40px;
+        box-shadow: 0 0 108px rgba(0, 0, 0, 1.1);
+        border-radius: 5px;
+        text-align: center;
+        width: 40%;
+    }
+}
+
+@media (min-width:992px) and (max-width:1200px) {
+
+    .borrowed-books-container {
+        height: 75vh;
+    }
+
+    .login-container {
+        background-color: white;
+        padding: 40px;
+        box-shadow: 0 0 108px rgba(0, 0, 0, 1.1);
+        border-radius: 5px;
+        text-align: center;
+        width: 30%;
+    }
+}
+
+
+@media (min-width:1200px) and (max-width:1500px) {
+    .login-container {
+        background-color: white;
+        padding: 40px;
+        box-shadow: 0 0 108px rgba(0, 0, 0, 1.1);
+        border-radius: 5px;
+        text-align: center;
+        width: 25%;
+    }
+}
+

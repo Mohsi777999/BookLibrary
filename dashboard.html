@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <h1 class="my-5">Welcome to the Admin Dashboard!</h1>
+        <form id="bookForm">
+            <label for="bookTitle">Book Title</label>
+            <input type="text" id="bookTitle" name="bookTitle" required>
+            <label for="bookAuthor">Book Author</label>
+            <input type="text" id="bookAuthor" name="bookAuthor" required>
+            <label for="bookCategory">Book Category</label>
+            <select id="bookCategory" name="bookCategory" required>
+                <option value="Si-Fi">Si-Fi</option>
+                <option value="Non-Si-Fi">Non-Si-Fi</option>
+                <option value="Coding">Coding</option>
+                <option value="History">History</option>
+                <option value="Math">Math</option>
+                <option value="Physics">Physics</option>
+            </select>
+            <button class="btn btn-outline-danger my-4 btn-lg" type="submit">Add Book</button>
+        </form>
+
+
+        <h2 class="my-5 head-line">Existing Books</h2>
+        <ul class="container exist" id="bookList"></ul>
+
+        <h2 class="head-line mb-5">Borrowed Books</h2>
+        <ul id="borrowedList" class="borr"></ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bookForm = document.getElementById('bookForm');
+            const bookList = document.getElementById('bookList');
+            const borrowedList = document.getElementById('borrowedList');
+
+            function renderBooks() {
+                bookList.innerHTML = '';
+                borrowedList.innerHTML = '';
+
+                let books = JSON.parse(localStorage.getItem('books')) || [];
+
+                const categories = ['Si-Fi', 'Non-Si-Fi', 'Coding', 'History', 'Math', 'Physics'];
+
+                categories.forEach(category => {
+
+                    const availableBooks = books.filter(book => book.category === category && !book.borrowed);
+                    if (availableBooks.length > 0) {
+                        const categoryHeader = document.createElement('h2');
+                        categoryHeader.textContent = category;
+                        bookList.appendChild(categoryHeader);
+
+                        availableBooks.forEach((book, index) => {
+                            const li = document.createElement('li');
+                            li.className = 'book-item';
+
+                            const img = document.createElement('img');
+                            img.src = book.image;
+                            img.alt = book.title;
+
+                            const div = document.createElement('div');
+                            div.innerHTML = `<strong>${book.title}</strong><br>by ${book.author}<br>Category: ${book.category}`;
+
+                            const updateButton = document.createElement('button');
+                            updateButton.textContent = 'Update';
+                            updateButton.onclick = function () {
+                                const newTitle = prompt('Enter new title', book.title);
+                                const newAuthor = prompt('Enter new author', book.author);
+                                const newCategory = prompt('Enter new category', book.category);
+                                if (newTitle && newAuthor && newCategory) {
+                                    books[books.findIndex(b => b.title === book.title && b.author === book.author)].title = newTitle;
+                                    books[books.findIndex(b => b.title === book.title && b.author === book.author)].author = newAuthor;
+                                    books[books.findIndex(b => b.title === book.title && b.author === book.author)].category = newCategory;
+                                    localStorage.setItem('books', JSON.stringify(books));
+                                    renderBooks();
+                                }
+                            };
+
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.onclick = function () {
+                                books.splice(books.findIndex(b => b.title === book.title && b.author === book.author), 1);
+                                localStorage.setItem('books', JSON.stringify(books));
+                                renderBooks();
+                            };
+
+                            li.appendChild(img);
+                            li.appendChild(div);
+                            li.appendChild(updateButton);
+                            li.appendChild(deleteButton);
+
+                            bookList.appendChild(li);
+                        });
+                    }
+
+                    const borrowedBooks = books.filter(book => book.category === category && book.borrowed);
+                    if (borrowedBooks.length > 0) {
+                        const borrowedCategoryHeader = document.createElement('h2');
+                        borrowedCategoryHeader.textContent = `${category} - Borrowed`;
+                        borrowedList.appendChild(borrowedCategoryHeader);
+
+                        borrowedBooks.forEach((book, index) => {
+                            const li = document.createElement('li');
+                            li.className = 'book-item';
+
+                            const img = document.createElement('img');
+                            img.src = book.image;
+                            img.alt = book.title;
+
+                            const div = document.createElement('div');
+                            div.innerHTML = `<strong>${book.title}</strong><br>by ${book.author}<br>
+                                     Category: ${book.category}<br>
+                                     <strong>Borrowed by:</strong> ${book.borrowedBy}<br>
+                                     <strong>Issued Date:</strong> ${book.issuedDate}<br>
+                                     <strong>Return Date:</strong> ${book.returnDate}`;
+
+                            const returnButton = document.createElement('button');
+                            returnButton.textContent = 'Return';
+                            returnButton.onclick = function () {
+                                const bookIndex = books.findIndex(b => b.title === book.title && b.author === book.author);
+                                books[bookIndex].borrowed = false;
+                                books[bookIndex].borrowedBy = '';
+                                books[bookIndex].issuedDate = '';
+                                books[bookIndex].returnDate = '';
+                                localStorage.setItem('books', JSON.stringify(books));
+                                renderBooks();
+                            };
+
+                            li.appendChild(img);
+                            li.appendChild(div);
+                            li.appendChild(returnButton);
+
+                            borrowedList.appendChild(li);
+                        });
+                    }
+                });
+            }
+
+            bookForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const bookTitle = document.getElementById('bookTitle').value;
+                const bookAuthor = document.getElementById('bookAuthor').value;
+                const bookCategory = document.getElementById('bookCategory').value;
+
+                const book = {
+                    title: bookTitle,
+                    author: bookAuthor,
+                    category: bookCategory,
+                    image: 'img/book.png',
+                    borrowed: false,
+                    borrowedBy: '',
+                    issuedDate: '',
+                    returnDate: ''
+                };
+
+                let books = JSON.parse(localStorage.getItem('books')) || [];
+                books.push(book);
+                localStorage.setItem('books', JSON.stringify(books));
+
+                bookForm.reset();
+                alert('Book added successfully!');
+                renderBooks();
+            });
+
+            renderBooks();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
